@@ -15,11 +15,26 @@
 
 using DataFrames, CSV
 
-vs_df = CSV.read("zj_many_rows_short.csv")
 
-sa = size(vs_df)
-v = Int8[]
-for i in 1:sa[2]
-    push!(v, a[1,i])
+
+col2vec(df) = begin
+    sa = size(df)
+    v = Int16[]
+    for i in 1:sa[2]
+        push!(v, df[1,i])
+    end
+    v
 end
-print(v)
+
+vs_df = CSV.read("zj_many_rows_short.csv", header=false)
+
+solution = [waterheight(vs_df[i,:] |> col2vec) for i in 1:size(vs_df)[1]]
+soln_df = DataFrame(soln = solution)
+CSV.write("zj_solution_short_rows.csv",soln_df, header=false)
+
+
+
+vs_df = CSV.read("zj_1_row_long.csv", header=false)
+solution = [waterheight(vs_df[i,:] |> col2vec) for i in 1:size(vs_df)[1]]
+soln_df = DataFrame(soln = solution)
+CSV.write("zj_solution_long_row.csv",DataFrame(solution), header=false)

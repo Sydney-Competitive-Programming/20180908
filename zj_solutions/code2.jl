@@ -1,12 +1,8 @@
 waterheight(v) = begin
     a = accumulate(max, v)
     b = reverse(accumulate(max,reverse(v)))
-    sum(v .- min.(a,b))
+    sum(min.(a,b) .- v)
 end
-
-@benchmark waterheight(v)
-
-# generate some test cases
 
 
 waterheightallrows(vs) = begin
@@ -15,14 +11,21 @@ waterheightallrows(vs) = begin
     #     res[1,:] .= waterheight(vs[i,:])
     # end
     # res
-    [waterheight[vs[i,:]] for i in 1:size(vs)[1]
+    [waterheight[vs[i,:]] for i in 1:size(vs)[1]]
 end
 
-@time waterheightallrows(vs)
-@benchmark waterheightallrows(vs)
+
+if false
+    @benchmark waterheight(v)
+
+    # generate some test cases
+
+    @time waterheightallrows(vs)
+    @benchmark waterheightallrows(vs)
 
 
-@time waterheightallrows(vs_many_rows)
-@benchmark waterheightallrows(vs_many_rows)
+    @time waterheightallrows(vs_many_rows)
+    @benchmark waterheightallrows(vs_many_rows)
 
-sum(waterheight(v) .- v)
+    sum(waterheight(v) .- v)
+end

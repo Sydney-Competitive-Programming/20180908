@@ -34,7 +34,7 @@ CSV.write("zj_solution_short_rows.csv",soln_df, header=false)
 
 
 
-vs_df = CSV.read("zj_1_row_long.csv", header=false)
-solution = [waterheight(vs_df[i,:] |> col2vec) for i in 1:size(vs_df)[1]]
-soln_df = DataFrame(soln = solution)
-CSV.write("zj_solution_long_row.csv",DataFrame(solution), header=false)
+vs_df = CSV.read("zj_1_row_long2.csv", header=false)
+solution1 = waterheight(vs_df[:,1])
+soln_df1 = DataFrame(soln = solution1)
+CSV.write("zj_solution_long_row.csv",soln_df1, header=false)

@@ -11,7 +11,7 @@ waterheightallrows(vs) = begin
     #     res[1,:] .= waterheight(vs[i,:])
     # end
     # res
-    [waterheight[vs[i,:]] for i in 1:size(vs)[1]]
+    [waterheight(vs[i,:]) for i in 1:size(vs)[1]]
 end
 
 
